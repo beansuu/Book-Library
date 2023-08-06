@@ -23,6 +23,7 @@ function addBookToLibrary() {
 
     titleInput.value = '';
     authorInput.value = '';
+    pagesInput.value = '';
 
     displayLibrary();
    }
@@ -32,12 +33,35 @@ function displayLibrary() {
   const bookList = document.querySelector('.book-list');
   bookList.innerHTML = '';
 
-  myLibrary.forEach(book => {
+  myLibrary.forEach((book, index) => {
     const bookInfo = document.createElement('div');
-    bookInfo.textContent = `${book.title} by ${book.author} ${book.pages} pages long`;
+    bookInfo.textContent = `${book.title} by ${book.author}, ${book.pages} pages`;
+
+    const removeButton = document.createElement('button');
+    removeButton.textContent = 'Remove';
+    removeButton.addEventListener('click', () => removeBook(index));
+
+    const toggleButton = document.createElement('button');
+    toggleButton.textContent = book.hasRead ? 'Unread' : 'Read';
+    toggleButton.addEventListener('click', () => toggleReadStatus(index));
+
+    bookInfo.appendChild(removeButton);
+    bookInfo.appendChild(toggleButton);
+
     bookList.appendChild(bookInfo);
-  })
+  });
 }
+
+function removeBook(index) {
+  myLibrary.splice(index, 1);
+  displayLibrary();
+}
+
+function toggleReadStatus(index) {
+  myLibrary[index].hasRead = !myLibrary[index].hasRead;
+  displayLibrary();
+}
+
 
 const addButton = document.getElementById('add-book');
 addButton.addEventListener('click', addBookToLibrary);
