@@ -1,11 +1,18 @@
 let myLibrary = [];
 
-function Book(title, author, pages, read) {
+class Book {
+  constructor(title, author, pages, read) {
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.read = read;
-  };
+  }
+
+  info() {
+    const readStatus = this.read ? "read" : "not read yet";
+    return `${this.title} by ${this.author}, ${this.pages} pages, ${readStatus}`;
+  }
+}
 
 
 function addBookToLibrary() {
@@ -68,9 +75,4 @@ addButton.addEventListener('click', addBookToLibrary);
 
 displayLibrary();
 
-  Book.prototype.info = function() {
-    const readStatus = this.read ? "read" : "not read yet";
-    return `${this.title} by ${this.author}, ${this.pages} pages, ${readStatus}`;
-  };
-  
 // pushing to branch test
